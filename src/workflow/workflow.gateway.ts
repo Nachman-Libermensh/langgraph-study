@@ -52,7 +52,10 @@ export class WorkflowGateway
       });
     } catch (error) {
       console.error('[Socket Error]', error);
-      client.emit('workflowError', { error: error.message });
+
+      const message = error instanceof Error ? error.message : 'Unknown error';
+
+      client.emit('workflowError', { error: message });
     }
   }
 }
